@@ -1,0 +1,10 @@
+pandas
+sentence-transformers
+faiss-cpu
+sqlalchemy
+python-dotenv
+tqdm
+requests
+openai
+huggingface-hub
+streamlit
