@@ -195,8 +195,12 @@ def call_openrouter(prompt: str):
     except Exception:
         return str(completion)
 
+
 # Optional logo (place your logo file in same directory or give URL)
-logo_path = "logo.png"  # or use a link: "https://huggingface.co/front/assets/huggingface_logo.svg"
+logo_path = "images.jpeg"  # or use a link: "https://huggingface.co/front/assets/huggingface_logo.svg"
+
+# Set TOP_K to always retrieve top 20 results
+TOP_K = 30
 
 st.set_page_config(page_title="Project Smarth - RAG Q&A", layout="centered")
 
@@ -204,7 +208,7 @@ st.set_page_config(page_title="Project Smarth - RAG Q&A", layout="centered")
 col1, col2 = st.columns([1, 4])
 with col1:
     if Path(logo_path).exists():
-        st.image(logo_path, width=80)
+        st.image(logo_path, width=100000)
 with col2:
     st.markdown(
         """
@@ -219,7 +223,7 @@ st.markdown("---")
 # Input field
 st.markdown("### Ask a Question")
 question = st.text_input(
-    "Type your question below 👇 (Example: 'What is the average rainfall in Kerala 2015-2020?')",
+    "Type your question below 👇 (Example: 'Compare  the rainfall in tamilnadu  and karnataka')",
     placeholder="Enter your question...",
 )
 
@@ -244,11 +248,11 @@ if st.button("Ask"):
                         answer = call_openrouter(prompt)
                     st.success("Answer generated successfully ✅")
                     st.markdown(
-    f"<div style='background-color:#f8f9fa; padding:15px; border-radius:10px; font-size:16px; color:#222;'>"
-    f"{answer}"
-    f"</div>",
-    unsafe_allow_html=True,
-)
+                        f"<div style='background-color:#f8f9fa; padding:15px; border-radius:10px; font-size:16px; color:#222;'>"
+                        f"{answer}"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
                 else:
                     st.warning("OpenRouter not configured — showing prompt only.")
                     st.code(prompt[:4000])
